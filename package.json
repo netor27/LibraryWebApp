@@ -1,0 +1,22 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "Node.js webapp with express 4, based on pluralsight course.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netor27/LibraryWebApp.git"
+  },
+  "author": "netor27",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/netor27/LibraryWebApp/issues"
+  },
+  "homepage": "https://github.com/netor27/LibraryWebApp#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
