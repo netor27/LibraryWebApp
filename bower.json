@@ -1,0 +1,21 @@
+{
+  "name": "workspace",
+  "description": "Node.js webapp with express 4, based on pluralsight course.",
+  "main": "app.js",
+  "authors": [
+    "netor27"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/netor27/LibraryWebApp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "font-awesome": "~4.4.0"
+  }
+}
