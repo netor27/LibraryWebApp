@@ -10,7 +10,11 @@ var host = process.env.IP;
 // var port = 5000;
 // var host = 'localhost';
 
+// set the static directory
+app.use(express.static('public'));
+app.use(express.static('src/views'));
 
+// set the routes
 app.get('/', function(req, res){
     res.send('Hello World!');
 });
