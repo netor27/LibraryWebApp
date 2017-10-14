@@ -2,13 +2,8 @@ var express = require('express');
 
 var app = express();
 
-// If running in cloud9
-var port = process.env.PORT;
-var host = process.env.IP;
-
-// If running in localhost
-// var port = 5000;
-// var host = 'localhost';
+var port = process.env.PORT || 5000;
+var host = process.env.IP || 'localhost';
 
 // set the static directory
 app.use(express.static('public'));
@@ -25,7 +20,7 @@ app.get('/books', function(req, res){
 
 app.listen(port, host, function(err){
     if(err){
-        console.log(err)
+        console.log(err);
     }else{
         console.log('running server on port ' + port);
     }
