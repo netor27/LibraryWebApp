@@ -1,75 +1,38 @@
 var express = require('express');
-
 var bookRouter = express.Router();
+var mongodb = require('mongodb').MongoClient;
+var objectId = require('mongodb').ObjectID;
 
 var router = function(nav) {
-    // hardcoded books
-    var books = [{
-            title: 'War and Peace',
-            genre: 'Historical Fiction',
-            author: 'Lev Nikolayevich Tolstoy',
-            read: false
-        },
-        {
-            title: 'Les Misérables',
-            genre: 'Historical Fiction',
-            author: 'Victor Hugo',
-            read: false
-        },
-        {
-            title: 'The Time Machine',
-            genre: 'Science Fiction',
-            author: 'H. G. Wells',
-            read: false
-        },
-        {
-            title: 'A Journey into the Center of the Earth',
-            genre: 'Science Fiction',
-            author: 'Jules Verne',
-            read: false
-        },
-        {
-            title: 'The Dark World',
-            genre: 'Fantasy',
-            author: 'Henry Kuttner',
-            read: false
-        },
-        {
-            title: 'The Wind in the Willows',
-            genre: 'Fantasy',
-            author: 'Kenneth Grahame',
-            read: false
-        },
-        {
-            title: 'Life On The Mississippi',
-            genre: 'History',
-            author: 'Mark Twain',
-            read: false
-        },
-        {
-            title: 'Childhood',
-            genre: 'Biography',
-            author: 'Lev Nikolayevich Tolstoy',
-            read: false
-        }
-    ];
 
-    // set the routes
     bookRouter.route('/')
         .get(function(req, res) {
-            res.render('bookListView', {
-                title: 'Hello from render',
-                nav: nav,
-                books: books
+            var url = 'mongodb://dbuser:M0nG0Us3rP4ssw0rd@ds119345.mlab.com:19345/library-db';
+            mongodb.connect(url, function(err, db) {
+                var collection = db.collection('books');
+                collection.find({}).toArray(function(err, results) {
+                    res.render('bookListView', {
+                        title: 'Hello from render',
+                        nav: nav,
+                        books: results
+                    });
+                });
             });
         });
+
     bookRouter.route('/:id')
         .get(function(req, res) {
-
-            res.render('bookView', {
-                title: 'Hello from render',
-                nav: nav,
-                book: books[req.params.id]
+            var id = new objectId(req.params.id);
+            var url = 'mongodb://dbuser:M0nG0Us3rP4ssw0rd@ds119345.mlab.com:19345/library-db';
+            mongodb.connect(url, function(err, db) {
+                var collection = db.collection('books');
+                collection.findOne({ _id: id }, function(err, result) {
+                    res.render('bookView', {
+                        title: 'Hello from render',
+                        nav: nav,
+                        book: result
+                    });
+                });
             });
         });
 
