@@ -3,7 +3,7 @@ var app = express();
 var port = process.env.PORT || 5000;
 //var host = process.env.IP || 'localhost';
 
-// mongo user
+// mongo user for dev and test purposes
 // dbuser
 // M0nG0Us3rP4ssw0rd
 
