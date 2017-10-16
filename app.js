@@ -10,19 +10,30 @@ app.use(express.static('public'));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-// set the routes
-app.get('/', function(req, res){
-    res.render('index', { title: 'Hello from render', list: ['a', 'b'] });
+var nav = [{
+    Link: '/Books',
+    Text: 'Books'
+}, {
+    Link: '/Authors',
+    Text: 'Authors'
+}];
+
+var bookRouter = require('./src/routes/bookRoutes')(nav);
+app.use('/Books', bookRouter);
+
+app.get('/', function(req, res) {
+    res.render('index', {
+        title: 'Hello from render',
+        nav: nav
+    });
 });
 
-app.get('/books', function(req, res){
-    res.send('Hello Books!');
-});
-
-app.listen(port, function(err){
-    if(err){
+// start server
+app.listen(port, function(err) {
+    if (err) {
         console.log(err);
-    }else{
+    }
+    else {
         console.log('running server on port ' + port);
     }
 });
