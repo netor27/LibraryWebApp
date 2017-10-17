@@ -56,8 +56,3 @@ app.listen(port, function(err) {
         console.log('running server on port ' + port);
     }
 });
-
-
-// mongo user for dev and test purposes
-// dbuser
-// M0nG0Us3rP4ssw0rd
