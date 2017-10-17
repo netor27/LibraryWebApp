@@ -12,7 +12,7 @@ var router = function(nav) {
                 var collection = db.collection('books');
                 collection.find({}).toArray(function(err, results) {
                     res.render('bookListView', {
-                        title: 'Hello from render',
+                        title: 'Books',
                         nav: nav,
                         books: results
                     });
@@ -28,7 +28,7 @@ var router = function(nav) {
                 var collection = db.collection('books');
                 collection.findOne({ _id: id }, function(err, result) {
                     res.render('bookView', {
-                        title: 'Hello from render',
+                        title: 'Book',
                         nav: nav,
                         book: result
                     });

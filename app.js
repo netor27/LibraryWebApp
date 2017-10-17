@@ -1,4 +1,6 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+
 var app = express();
 var port = process.env.PORT || 5000;
 //var host = process.env.IP || 'localhost';
@@ -9,6 +11,8 @@ var port = process.env.PORT || 5000;
 
 // set the static directory
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
@@ -23,14 +27,16 @@ var nav = [{
 // initialize routers
 var bookRouter = require('./src/routes/bookRoutes')(nav);
 var adminRouter = require('./src/routes/adminRoutes')(nav);
+var authRouter = require('./src/routes/authRoutes')(nav);
 
 // set the routers to the ap
 app.use('/Books', bookRouter);
 app.use('/Admin', adminRouter);
+app.use('/Auth', authRouter);
 
 app.get('/', function(req, res) {
     res.render('index', {
-        title: 'Hello from render',
+        title: 'Index',
         nav: nav
     });
 });
