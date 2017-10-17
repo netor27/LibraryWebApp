@@ -2,12 +2,21 @@ var express = require('express');
 var bookRouter = express.Router();
 var mongodb = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
+var url = require('../config/mongodb').url;
 
 var router = function(nav) {
 
+    bookRouter.use(function(req, res, next) {
+        if (!req.user) {
+            res.redirect('/');
+        }
+        else {
+            next();
+        }
+    });
+
     bookRouter.route('/')
         .get(function(req, res) {
-            var url = 'mongodb://dbuser:M0nG0Us3rP4ssw0rd@ds119345.mlab.com:19345/library-db';
             mongodb.connect(url, function(err, db) {
                 var collection = db.collection('books');
                 collection.find({}).toArray(function(err, results) {
@@ -20,10 +29,9 @@ var router = function(nav) {
             });
         });
 
-    bookRouter.route('/:id')
+    bookRouter.route('/:id') 
         .get(function(req, res) {
             var id = new objectId(req.params.id);
-            var url = 'mongodb://dbuser:M0nG0Us3rP4ssw0rd@ds119345.mlab.com:19345/library-db';
             mongodb.connect(url, function(err, db) {
                 var collection = db.collection('books');
                 collection.findOne({ _id: id }, function(err, result) {
