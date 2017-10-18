@@ -13,7 +13,7 @@ var goodreadService = function() {
 
         var options = {
             host: 'www.goodreads.com',
-            path: '/book/show/656?format=xml&key=mzhVCtcaq30A1Dm6QzknPA'
+            path: '/book/show/'+id+'?format=xml&key=mzhVCtcaq30A1Dm6QzknPA'
         };
 
         var callback = function(response) {
@@ -23,9 +23,7 @@ var goodreadService = function() {
             });
 
             response.on('end', function() {
-                console.log(str);
                 parser.parseString(str, function(err, result) {
-                    console.log(result);
                     cb(null, result.GoodreadsResponse.book);
                 });
             });

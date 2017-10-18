@@ -21,14 +21,24 @@ var bookController = function(bookService, nav) {
         mongodb.connect(url, function(err, db) {
             var collection = db.collection('books');
             collection.findOne({ _id: id }, function(err, result) {
-                bookService.getBookById(result.bookId, function(err, book) {
-                    result.book = book;
+
+                if (result.bookId) {
+                    bookService.getBookById(result.bookId, function(err, book) {
+                        result.book = book;
+                        res.render('bookView', {
+                            title: 'Book Detail',
+                            nav: nav,
+                            book: result
+                        });
+                    });
+                }
+                else {
                     res.render('bookView', {
                         title: 'Book',
                         nav: nav,
                         book: result
                     });
-                });
+                }
             });
         });
     };

@@ -25,9 +25,6 @@ app.set('view engine', 'ejs');
 var nav = [{
     Link: '/Books',
     Text: 'Books'
-}, {
-    Link: '/Authors',
-    Text: 'Authors'
 }];
 
 // initialize routers
@@ -42,7 +39,7 @@ app.use('/Auth', authRouter);
 
 app.get('/', function(req, res) {
     res.render('index', {
-        title: 'Index',
+        title: 'Library',
         nav: nav
     });
 });
